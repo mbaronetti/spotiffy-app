@@ -1,26 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React , { Component } from "react";
+//import logo from "./logo.svg";
+import { connect } from 'react-redux';
+import { Modal } from 'antd';
+import { showModal } from './redux/actions/index.js';
+import "./App.css";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const mapDispatchToProps = dispatch => {
+  return{
+    showModal: val => dispatch(showModal(val))
+  }
 }
 
-export default App;
+const mapStateToProps = state => {
+  return{
+    modalVisible: state.modalVisible
+  }
+}
+
+class App extends Component {
+  render(){
+    const {modalVisible} = this.props;
+    const {showModal} = this.props;
+    return (
+      <div className="App">
+        <header className="App-header">
+        </header>
+      </div>
+    );
+  }
+}
+
+export default connect(mapStateToProps , mapDispatchToProps)(App);
