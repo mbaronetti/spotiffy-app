@@ -6,7 +6,7 @@ import {
     SEARCH_TERM,
     SET_ARTISTS,
     GET_NOW_PLAYING,
-    SET_NOW_PLAYING,
+    SET_NOW_PLAYING
 } from '../constants'
 import Spotify from 'spotify-web-api-js'
 
@@ -36,7 +36,6 @@ export const setNowPlaying = data => {
 export const getNowPlaying = () => {
     return dispatch => {
         spotifyApi.getMyCurrentPlaybackState().then(data => {
-            console.log('response', data)
             return dispatch(setNowPlaying(data.item))
         })
     }

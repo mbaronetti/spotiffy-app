@@ -25,24 +25,20 @@ const mapStateToProps = state => {
         nowPlaying: state.nowPlaying
     }
 }
+
+const params = getHashParams();
+const loggedIn = params.access_token ? true : false;
+const accessToken = params.access_token ? params.access_token : "";
+
 class App extends Component {
     constructor(props) {
         super(props)
-        const params = getHashParams()
-        this.state = {
-            loggedIn: params.access_token ? true : false,
-            accessToken : params.access_token ? params.access_token : "",
-        }
-        if (params.access_token) {
-            spotifyApi.setAccessToken(params.access_token)
-        }
     }
 
     componentDidMount() {
-        const { loggedIn } = this.state
         if (loggedIn) {
-          this.props.getNowPlaying();
-          setInterval(this.props.getNowPlaying, 1000)
+          spotifyApi.setAccessToken(accessToken)
+          //setInterval(this.props.getNowPlaying, 1000)
         }else{
           redirectToAuth(true);
         }
@@ -50,7 +46,6 @@ class App extends Component {
 
     render() {
         const { modalVisible , showModal , artists , nowPlaying} = this.props
-        const { loggedIn } = this.state
         if(loggedIn)
         return (
             <div className="App">
